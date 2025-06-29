@@ -18,9 +18,9 @@ public class VentaService {
     private VentaDTO toDTO(Venta venta) {
         return new VentaDTO(
                 venta.getIdVenta(),
+                venta.getFechaVenta(),
                 venta.getIdCliente(),
                 venta.getIdVendedor(),
-                venta.getFechaVenta()
         );
     }
 

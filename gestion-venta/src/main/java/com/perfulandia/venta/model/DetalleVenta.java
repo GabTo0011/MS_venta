@@ -1,9 +1,5 @@
 package com.perfulandia.venta.model;
 
-<<<<<<< HEAD
-public class DetalleVenta {
-
-=======
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,5 +29,4 @@ public class DetalleVenta {
 
     @Column(name = "subtotal")
     private Double subtotal;
->>>>>>> 5052071a85022015b14d84c5fdee83de55dd2f1d
 }
