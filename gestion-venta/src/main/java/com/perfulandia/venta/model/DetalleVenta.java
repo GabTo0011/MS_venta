@@ -15,9 +15,6 @@ public class DetalleVenta {
     @Column(name = "id_detalle")
     private Integer idDetalle;
 
-    @Column(name = "id_venta")
-    private Integer idVenta;
-
     @Column(name = "id_producto")
     private Integer idProducto;
 
@@ -29,4 +26,8 @@ public class DetalleVenta {
 
     @Column(name = "subtotal")
     private Double subtotal;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_venta", referencedColumnName = "id_venta")
+    private Venta venta;
 }

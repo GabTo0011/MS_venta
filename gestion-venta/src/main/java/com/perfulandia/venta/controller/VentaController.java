@@ -3,41 +3,39 @@ package com.perfulandia.venta.controller;
 import com.perfulandia.venta.dto.VentaDTO;
 import com.perfulandia.venta.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ventas")
+@RequestMapping("/ventas")
 public class VentaController {
 
     @Autowired
-    private VentaService service;
+    private VentaService ventaService;
 
     @PostMapping
-    public ResponseEntity<VentaDTO> crear(@RequestBody VentaDTO dto) {
-        return ResponseEntity.ok(service.crear(dto));
+    public VentaDTO crear(@RequestBody VentaDTO dto) {
+        return ventaService.crear(dto);
     }
 
     @GetMapping
-    public ResponseEntity<List<VentaDTO>> listar() {
-        return ResponseEntity.ok(service.listar());
+    public List<VentaDTO> listar() {
+        return ventaService.listar();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VentaDTO> obtener(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.obtenerPorId(id));
+    public VentaDTO obtener(@PathVariable Integer id) {
+        return ventaService.obtenerPorId(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VentaDTO> actualizar(@PathVariable Integer id, @RequestBody VentaDTO dto) {
-        return ResponseEntity.ok(service.actualizar(id, dto));
+    public VentaDTO actualizar(@PathVariable Integer id, @RequestBody VentaDTO dto) {
+        return ventaService.actualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
-        service.eliminar(id);
-        return ResponseEntity.noContent().build();
+    public void eliminar(@PathVariable Integer id) {
+        ventaService.eliminar(id);
     }
 }
