@@ -1,9 +1,5 @@
 package com.perfulandia.venta.model;
 
-<<<<<<< HEAD
-public class DetalleVenta {
-
-=======
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,9 +15,6 @@ public class DetalleVenta {
     @Column(name = "id_detalle")
     private Integer idDetalle;
 
-    @Column(name = "id_venta")
-    private Integer idVenta;
-
     @Column(name = "id_producto")
     private Integer idProducto;
 
@@ -33,5 +26,8 @@ public class DetalleVenta {
 
     @Column(name = "subtotal")
     private Double subtotal;
->>>>>>> 5052071a85022015b14d84c5fdee83de55dd2f1d
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_venta", referencedColumnName = "id_venta")
+    private Venta venta;
 }
