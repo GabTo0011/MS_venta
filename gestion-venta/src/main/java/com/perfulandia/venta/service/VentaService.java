@@ -1,8 +1,11 @@
 package com.perfulandia.venta.service;
 
-import com.perfulandia.venta.dto.*;
-import com.perfulandia.venta.model.*;
-import com.perfulandia.venta.repository.*;
+import com.perfulandia.venta.dto.DetalleVentaDTO;
+import com.perfulandia.venta.dto.VentaDTO;
+import com.perfulandia.venta.model.Venta;
+import com.perfulandia.venta.repository.DetalleVentaRepository;
+import com.perfulandia.venta.repository.VentaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +19,7 @@ public class VentaService {
     private VentaRepository ventaRepository;
 
     @Autowired
-    private DetalleVentaRepository DetalleVentaRepository;
+    private DetalleVentaRepository detalleVentaRepository;
 
     private VentaDTO toDTO(Venta venta) {
         List<DetalleVentaDTO> detalleDTOs = venta.getDetalles() != null
@@ -63,19 +66,26 @@ public class VentaService {
     }
 
     public VentaDTO obtenerPorId(Integer id) {
-        Venta venta = ventaRepository.findById(id).orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Venta no encontrada con id " + id));
         return toDTO(venta);
     }
 
     public VentaDTO actualizar(Integer id, VentaDTO dto) {
-        Venta existente = ventaRepository.findById(id).orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+        Venta existente = ventaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Venta no encontrada con id " + id));
+
         existente.setIdCliente(dto.getIdCliente());
         existente.setIdVendedor(dto.getIdVendedor());
         existente.setFechaVenta(dto.getFechaVenta());
+
         return toDTO(ventaRepository.save(existente));
     }
 
     public void eliminar(Integer id) {
+        if (!ventaRepository.existsById(id)) {
+            throw new EntityNotFoundException("Venta no encontrada con id " + id);
+        }
         ventaRepository.deleteById(id);
     }
 }
