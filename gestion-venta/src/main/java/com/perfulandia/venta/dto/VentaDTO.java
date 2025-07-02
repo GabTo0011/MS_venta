@@ -1,13 +1,15 @@
 package com.perfulandia.venta.dto;
 
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Date;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VentaDTO {
+public class VentaDTO extends RepresentationModel<VentaDTO> {
     private Integer idVenta;
     private Integer idCliente;
     private Integer idVendedor;
