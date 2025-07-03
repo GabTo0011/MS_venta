@@ -5,6 +5,7 @@ import com.perfulandia.venta.model.DetalleVenta;
 import com.perfulandia.venta.model.Venta;
 import com.perfulandia.venta.repository.DetalleVentaRepository;
 import com.perfulandia.venta.repository.VentaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class DetalleVentaService {
 
         if (dto.getIdVenta() != null) {
             Venta venta = ventaRepository.findById(dto.getIdVenta())
-                    .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+                    .orElseThrow(() -> new EntityNotFoundException("Venta no encontrada con id " + dto.getIdVenta()));
             entidad.setVenta(venta);
         }
 
@@ -62,13 +63,13 @@ public class DetalleVentaService {
 
     public DetalleVentaDTO obtenerPorId(Integer id) {
         DetalleVenta entidad = detalleVentaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("DetalleVenta no encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("DetalleVenta no encontrado con id " + id));
         return toDTO(entidad);
     }
 
     public DetalleVentaDTO actualizar(Integer id, DetalleVentaDTO dto) {
         DetalleVenta existente = detalleVentaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("DetalleVenta no encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("DetalleVenta no encontrado con id " + id));
 
         existente.setIdProducto(dto.getIdProducto());
         existente.setCantidad(dto.getCantidad());
@@ -77,7 +78,7 @@ public class DetalleVentaService {
 
         if (dto.getIdVenta() != null) {
             Venta venta = ventaRepository.findById(dto.getIdVenta())
-                    .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+                    .orElseThrow(() -> new EntityNotFoundException("Venta no encontrada con id " + dto.getIdVenta()));
             existente.setVenta(venta);
         }
 
@@ -85,6 +86,9 @@ public class DetalleVentaService {
     }
 
     public void eliminar(Integer id) {
+        if (!detalleVentaRepository.existsById(id)) {
+            throw new EntityNotFoundException("DetalleVenta no encontrado con id " + id);
+        }
         detalleVentaRepository.deleteById(id);
     }
 }
