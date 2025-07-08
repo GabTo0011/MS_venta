@@ -3,7 +3,7 @@ package com.perfulandia.venta.service;
 import com.perfulandia.venta.dto.DetalleVentaDTO;
 import com.perfulandia.venta.dto.VentaDTO;
 import com.perfulandia.venta.model.Venta;
-import com.perfulandia.venta.repository.DetalleVentaRepository;
+// import com.perfulandia.venta.repository.DetalleVentaRepository;
 import com.perfulandia.venta.repository.VentaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ public class VentaService {
     @Autowired
     private VentaRepository ventaRepository;
 
-    @Autowired
-    private DetalleVentaRepository detalleVentaRepository;
+    // @Autowired
+    // private DetalleVentaRepository detalleVentaRepository;
 
     private VentaDTO toDTO(Venta venta) {
         List<DetalleVentaDTO> detalleDTOs = venta.getDetalles() != null

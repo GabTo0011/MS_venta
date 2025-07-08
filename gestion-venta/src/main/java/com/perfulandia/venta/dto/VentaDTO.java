@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class VentaDTO extends RepresentationModel<VentaDTO> {
