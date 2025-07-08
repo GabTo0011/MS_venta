@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface DetalleVentaRepository extends JpaRepository<DetalleVenta, Integer> {
+    
     List<DetalleVenta> findByVenta_IdVenta(Integer idVenta);
 }
