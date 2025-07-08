@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class DetalleVentaDTO extends RepresentationModel<DetalleVentaDTO> {
